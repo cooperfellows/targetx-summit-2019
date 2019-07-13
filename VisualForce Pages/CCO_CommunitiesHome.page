@@ -1,0 +1,27 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" expires="0" cache="false" docType="html" controller="TargetX_Base.TX_CommunitiesBase">
+
+    <apex:composition template="{!defaultTemplate}">
+
+        <apex:define name="content">
+
+        <div class="targetx-welcome-info">
+            <h1 class="targetx-welcome-title">Welcome to Champlain College!!</h1>
+            <h2 class="targetx-welcome-subtext">See below to start a new application or continue an existing one.</h2>
+            <div class="targetx-welcome-items">
+
+                <div class="targetx-welcome-item-calendar">
+                    <div class="targetx-welcome-progress"></div>
+                    <span class="targetx-welcome-item-title">Online Application</span>
+                    <span>Click the button below to get started!</span>
+                    <div>
+                        <a href="{!$Page.TargetX_App__OnlineAppHome}" class="targetx-button">Online Application</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

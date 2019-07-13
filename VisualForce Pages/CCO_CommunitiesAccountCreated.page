@@ -1,0 +1,23 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" expires="0" cache="false" docType="html" controller="TargetX_Base.TX_CommunitiesBase" extensions="TX_CommunitiesSelfRegConfirmController">
+
+  <apex:composition template="{!defaultTemplate}">
+
+    <apex:define name="content">
+    	<div class="row">
+    	<div class="col-md-6 col-md-offset-3">
+    		<ul class="targetx-application-form-slides">
+		        <li class="targetx-application-form-slide targetx-active">
+		          <h1 class="targetx-application-form-title cco-blue">Thank You.</h1>
+			         <p>Your application account has been created.<br/>
+		    	     	Now you need to create a password. Instructions have been sent to the email address you provided.</p>
+			       <div class="targetx-application-form-slide-buttons">
+			          <apex:outputLink rendered="{!$Site.LoginEnabled}" value="{!$Page.CCO_CommunitiesLogin}" styleClass="btn btn-primary btn-muted text-uppercase">Login To Application</apex:outputLink>
+			        </div>
+		        </li>
+	      	</ul>
+    	</div>
+    	</div>
+    </apex:define>
+
+  </apex:composition>
+</apex:page>
