@@ -1,0 +1,107 @@
+<apex:component controller="CCO_SiteLoginController" id="loginComponent">
+
+    <div class="row">
+    	<div class="col-md-6">
+    		<h3 class="cco-blue">Continue Your Application</h3>
+    		<p>We're glad you're back! To login, use the email address and password that you began your application with.</p>
+    		<p>If you don't remember the email address and cannot access your account creation confirmation email, call our admissions team at <a href="tel:+18666376292" title="Call Support">866.637.6292</a> or email <a href="mailto:cco@champlain.edu" title="Email Support">cco@champlain.edu</a> and our support team will assist you.</p>
+    	</div>
+    	<div class="col-md-6">
+		    <ul class="nav nav-tabs nav-justified cco-tabs">
+   				<li role="presentation" class="active">
+ 					<apex:outputLink rendered="{!ISPICKVAL($User.UserType,'Guest')}" title="Continue Your Application" value="{!$Page.CCO_SiteLogin}" styleClass="text-uppercase">
+                    	Continue Application
+                  	</apex:outputLink>
+   				</li>
+   				<li role="presentation">
+  					<a href="/CCO_CommunitiesCreateAccount" class="text-uppercase">
+ 						Start New Application
+ 					</a>
+   				</li>
+   			</ul>
+		    <div class="targetx-application-form-slides" role="main">
+		        <div class="targetx-application-form-slide targetx-active ">
+		            <apex:outputPanel id="alert">
+		                <apex:pageMessages ></apex:pageMessages>
+		            </apex:outputPanel>
+		            <h1 class="targetx-application-form-title" role="banner">Continue Your Application</h1>
+		            <apex:form id="loginForm" forceSSL="true">
+		            	
+		                <apex:outputLabel for="username">
+		                    <apex:inputText styleClass="targetx-input-text" id="username" value="{!username}" onkeypress="return noenter(event);"/>
+		                    <span class="text-uppercase">Email Address</span>
+		                </apex:outputLabel>
+		
+		                <apex:outputLabel for="password">
+		                    <apex:inputSecret styleClass="targetx-input-text" id="password" value="{!password}" onkeypress="return noenter(event);"/>
+		                    <span class="text-uppercase">Password</span>
+		                </apex:outputLabel>
+		
+		                <div>
+		                    <apex:commandLink id="submitForm" action="{!login}" styleClass="btn btn-primary btn-muted text-uppercase" value="Login" rerender="alert" oncomplete="onSubmitComplete()"/>
+		                    <apex:outputLink styleClass="btn btn-link text-muted" rendered="{!ISPICKVAL($User.UserType,'Guest')}" value="{!$Site.Prefix}/CCO_ForgotPassword">
+				            	Forgot Password
+				            </apex:outputLink>
+		                </div>
+		            </apex:form>		
+		        </div>
+		    </div>
+    	</div>
+    </div>
+    <script type='text/javascript'>
+        function noenter(ev) {
+            if (window.event && window.event.keyCode == 13 || ev.which == 13) {
+                var ele = document.getElementById('{!$Component.loginComponent.loginForm.submitForm}');
+                ele.click();
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function onSubmitComplete(){
+            $('#alertZone').html($('.messageText').text());
+        }
+        // See if we should prefill from URL
+      function prefillDetails(){
+      	try{
+			let pairs = location.search.slice(1).split('&');console.log(pairs);
+			let result = {};
+			pairs.forEach(function(pair){
+				pair = pair.split('=');
+				result[pair[0]] = escape(decodeURIComponent(pair[1] || ''));
+			});
+		
+			// Now fill in our fields
+			const fieldMap = {
+				email : {
+					'urlParam' : 'email',
+					'fieldId' : 'j_id0:j_id1:siteLogin:loginComponent:loginForm:username'
+				}
+			};
+		
+			Object.entries(fieldMap).forEach(([k, v]) => {
+				let fillElement = document.getElementById(v.fieldId);
+				console.log(typeof result[v.urlParam]);
+				if(fillElement !== null && typeof result[v.urlParam] !== 'undefined' && result[v.urlParam] != '') {
+					if(fillElement.value == '') {
+						fillElement.value = result[v.urlParam];
+						fillElement.classList.add('cc-text-review');
+						if ("createEvent" in document) {
+							var evt = document.createEvent("HTMLEvents");
+							evt.initEvent("change", false, true);
+							fillElement.dispatchEvent(evt);
+						}
+						else{
+							fillElement.fireEvent("onchange");
+						}
+					}
+				}
+			});
+		} catch(e){
+			console.log(e);
+		}
+      }
+      prefillDetails();
+    </script>
+</apex:component>
