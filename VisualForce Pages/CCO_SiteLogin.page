@@ -1,0 +1,10 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" expires="0" cache="false" docType="html" controller="TargetX_Base.TX_CommunitiesBase">
+
+  <apex:composition template="CCO_CommunitiesTemplate">
+  	
+    <apex:define name="content">
+      <c:CCO_SiteLogin id="siteLogin"/>
+    </apex:define>
+
+  </apex:composition>
+</apex:page>

@@ -1,0 +1,141 @@
+<apex:page showHeader="false" applyHtmlTag="false" controller="TargetX_Base.TX_CommunitiesBase" doctype="html" standardStylesheets="false" sidebar="false">
+<apex:variable var="static_files" value="{!$Resource[staticResource]}"/>
+
+<apex:variable var="header_school" value="Champlain College Online"/>
+<apex:variable var="header_school_line_1" value="Welcome To Champlain College Online"/>
+<apex:variable var="sandbox_notice" value=""/>
+<apex:variable var="header_school_line_2" value=""/>
+<apex:variable var="header_program" value="Application For Admission"/>
+<apex:variable var="cco_theme" value="false" />
+<apex:variable var="cco_body_theme" value="" />
+
+<apex:outputPanel rendered="{!$CurrentPage.Name != 'TargetX_App__Apply2' && $CurrentPage.Name != 'targetx_app__apply2' && $CurrentPage.Name != 'TargetX_App__ApplicationSubmit2'}">
+	<apex:variable var="cco_theme" value="true" />
+	<apex:variable var="cco_body_theme" value="cco-community" />
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{!$Organization.Id != '00D410000006pQ6EAI'}">
+    <apex:variable var="sandbox_notice" value="SANDBOX"/>
+</apex:outputPanel>
+
+<!--[if IE 8]>         <html class="no-js lt-ie10 lt-ie9 ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js lt-ie10 ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en" class="{!cco_body_theme}">
+<head>
+    <meta charset="utf-8"></meta>
+    <title>{!header_school}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"></meta>
+    <link rel="apple-touch-icon" href="../../../images/touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../../../images/touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="../../../images/touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="../../../images/touch-icon-ipad-retina.png" />
+
+    <apex:insert name="jquery">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    </apex:insert>
+
+    <apex:insert name="bootstrap">
+        <link rel="stylesheet" href="{!static_files}/css/bootstrap.css"/>
+        <script src="{!static_files}/js/bootstrap.min.js"></script>
+    </apex:insert>
+
+    <apex:insert name="css">
+        <link href="//fonts.googleapis.com/css?family=Lato:400,700|EB+Garamond" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{!static_files}/css/targetx-ui.css" />
+        <link rel="stylesheet" href="{!static_files}/css/targetx.css" />
+    </apex:insert>
+        
+    <apex:insert name="js">
+        <script src="{!static_files}/js/targetx-libs.js"></script>
+        <script src="{!static_files}/js/targetx-application.js"></script>
+    </apex:insert>
+    
+</head>
+
+<body class="{!cco_body_theme}">
+    <apex:insert name="header">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed hidden" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <div class="targetx-header-university">
+                  <div class="targetx-header-university-icon">
+                  	<img src="https://c25910bbec624420dd29-8ecd558624a629ebd460298bea51b15d.ssl.cf2.rackcdn.com/CCO%20Logos/CCO%20Logo_shield_stacked_FC-01.svg" alt="Champlain College Online Application For Admission" title="Champlain College Online Application For Admission" />
+                  </div>
+              </div>
+              <div class="visible-xs cco-account-wrap navbar-default">
+              	<ul class="nav navbar-nav navbar-right">
+	              	<li>
+	                    <apex:outputLink rendered="{!ISPICKVAL($User.UserType,'Guest')}" value="{!$Page.CCO_SiteLogin}" styleClass="targetx-header-user">
+	                        <span>Login</span>
+	                    </apex:outputLink>
+	                    <apex:outputLink rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}" value="/secur/logout.jsp" styleClass="targetx-header-user">
+	                        <span>Sign Out</span>
+	                    </apex:outputLink>
+	                </li>
+                </ul>
+              </div>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <apex:outputLink rendered="{!ISPICKVAL($User.UserType,'Guest')}" value="{!$Page.CCO_SiteLogin}" styleClass="targetx-header-user">
+                        <span> Login</span>
+                    </apex:outputLink>
+                    <apex:outputLink rendered="{!NOT(ISPICKVAL($User.UserType,'Guest'))}" value="/secur/logout.jsp" styleClass="targetx-header-user">
+                        <span> Sign Out</span>
+                    </apex:outputLink>
+                </li>
+              </ul>
+              <div id="cco-support-header" class="visible-lg navbar-right">
+           			Need Assistance? <a href="tel:+18666376292" title="Call Us At 1 866 637 6292"><span class="glyphicon glyphicon-earphone cco-phone" aria-hidden="true"></span>866.637.6292</a>
+              </div>
+            </div><!--/.nav-collapse -->
+          </div>
+        </nav>
+    </apex:insert>
+    
+   
+    <!-- <apex:outputPanel rendered="{!cco_theme == 'true'}">  -->
+	    <div class="targetx-dashboard">
+	    	<div class="{!IF(($CurrentPage.Name != 'TargetX_App__NewApplication' && $CurrentPage.Name != 'TargetX_App__ApplicationSubmit2') && (cco_theme == 'true'),'container','')}">
+				<apex:outputPanel rendered="{!($CurrentPage.Name != 'TargetX_App__NewApplication' && $CurrentPage.Name != 'TargetX_App__ApplicationSubmit2') && (cco_theme == 'true')}">
+		    		<div class="row visible-lg">
+		    			<div class="col-sm-12">
+		    				<h2 class="cco-blue">{!sandbox_notice} {!header_school} {!header_program}</h2>
+		    			</div>
+		    		</div>
+	    		</apex:outputPanel>
+	    		<div class="{!IF(($CurrentPage.Name != 'TargetX_App__NewApplication' && $CurrentPage.Name != 'TargetX_App__ApplicationSubmit2') && (cco_theme == 'true'),'row','')}">
+	    			<div class="{!IF(($CurrentPage.Name != 'TargetX_App__NewApplication') && (cco_theme == 'true'),'col-sm-12','')}">
+	    				<apex:insert name="content" />
+	    			</div>
+	    		</div>
+	    		<div class="row hidden-lg">
+	    			<div class="col-sm-12">
+						<div id="cco-support-footer" class="text-center">
+					     	<h3>
+					     		Need Assistance? <a href="tel:+18666376292" title="Call Us At 1 866 637 6292"> <span class="glyphicon glyphicon-earphone cco-phone" aria-hidden="true"></span>866.637.6292</a>
+					   		</h3>
+					    </div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div>
+	<!-- </apex:outputPanel>  -->
+    <apex:insert name="footer"/>   
+</body>
+    <style>
+        <apex:outputText escape="false" value="{!customCss}"/>
+    </style>
+</html>
+<!--[if gt IE 9]><!--> </html> <!--<![endif]-->
+
+</apex:page>
